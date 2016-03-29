@@ -11,6 +11,7 @@
 		3A1598E511B9DDF3001E7AB5 /* generic.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 3A1598E111B9DDF3001E7AB5 /* generic.fsh */; };
 		3A1598EF11B9DE37001E7AB5 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A1598EE11B9DE37001E7AB5 /* OpenGL.framework */; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
+		965ACF8D1CAB110700B4544C /* sceneobjects.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 965ACF8C1CAB110700B4544C /* sceneobjects.cpp */; };
 		B123563D18C376B900D5EC60 /* glview.mm in Sources */ = {isa = PBXBuildFile; fileRef = B123563518C376B900D5EC60 /* glview.mm */; };
 		B123563E18C376B900D5EC60 /* renderer.mm in Sources */ = {isa = PBXBuildFile; fileRef = B123563618C376B900D5EC60 /* renderer.mm */; };
 		B123563F18C376B900D5EC60 /* windowcontroller.mm in Sources */ = {isa = PBXBuildFile; fileRef = B123563918C376B900D5EC60 /* windowcontroller.mm */; };
@@ -38,6 +39,8 @@
 		3A1598E111B9DDF3001E7AB5 /* generic.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = generic.fsh; path = Shaders/generic.fsh; sourceTree = "<group>"; };
 		3A1598EE11B9DE37001E7AB5 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		3A15990611B9DE6C001E7AB5 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		965ACF8B1CAB102B00B4544C /* sceneobjects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = sceneobjects.h; path = src/sceneobjects.h; sourceTree = "<group>"; };
+		965ACF8C1CAB110700B4544C /* sceneobjects.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = sceneobjects.cpp; path = src/sceneobjects.cpp; sourceTree = "<group>"; };
 		B123563518C376B900D5EC60 /* glview.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = glview.mm; path = src/glview.mm; sourceTree = "<group>"; };
 		B123563618C376B900D5EC60 /* renderer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = renderer.mm; path = src/renderer.mm; sourceTree = "<group>"; };
 		B123563718C376B900D5EC60 /* glview.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = glview.h; path = src/glview.h; sourceTree = "<group>"; };
@@ -96,6 +99,8 @@
 				B123563A18C376B900D5EC60 /* windowcontroller.h */,
 				B123563918C376B900D5EC60 /* windowcontroller.mm */,
 				B123563B18C376B900D5EC60 /* main.m */,
+				965ACF8B1CAB102B00B4544C /* sceneobjects.h */,
+				965ACF8C1CAB110700B4544C /* sceneobjects.cpp */,
 			);
 			name = src;
 			sourceTree = "<group>";
@@ -263,6 +268,7 @@
 				B1D0C7DB1A289DF9007E1C2A /* mesh.mm in Sources */,
 				B123563D18C376B900D5EC60 /* glview.mm in Sources */,
 				B123563E18C376B900D5EC60 /* renderer.mm in Sources */,
+				965ACF8D1CAB110700B4544C /* sceneobjects.cpp in Sources */,
 				B132F6E918C37B700020FC7D /* matrixutil.cpp in Sources */,
 				B1CCD1BE1A3A49FB0034DBFC /* vectorutil.cpp in Sources */,
 				B132F6EA18C37B700020FC7D /* sourceutil.cpp in Sources */,
