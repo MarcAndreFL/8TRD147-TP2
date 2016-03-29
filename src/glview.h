@@ -4,6 +4,7 @@
 
 
 #import "imageutil.h"
+#import "sceneobjects.h"
 
 class CMesh;
 @class CRenderer;
@@ -18,6 +19,10 @@ class CMesh;
     float mouse_x0, mouse_y0;
     
     CMesh*      mesh;
+    CFloor*     floor;
+    CPole*      pole[2];
+    CSheet*     sheet;
+    CRope*      rope;
     CRenderer*  renderer;
     NSTimer*    frame_timer;
 }
@@ -39,6 +44,7 @@ class CMesh;
 -(IBAction)bt_stop_pressed:(NSButton*)sender;
 
 // Lecture d'un fichier en format ply.
+-(void)initScene;
 -(void)load_mesh:(const char*)fply;
 
 

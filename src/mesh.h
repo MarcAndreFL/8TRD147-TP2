@@ -95,6 +95,8 @@ public:
     void    set_diffuse_tex_id(GLint id) { diffuse_tex_id = id; }
     GLint   get_diffuse_tex_id() const { return diffuse_tex_id; }
     
+    void    UpdateNormals();
+    
     void    delete_diffuse_tex() { glDeleteTextures(1, &diffuse_tex_id); }
     
     friend std::ostream& operator<<(std::ostream&, const CMesh&);
@@ -113,8 +115,6 @@ protected:
     
     std::vector<CVertex*>    vertices;
     std::list<CTriangle*>    triangles;
-
-    void    UpdateNormals();
 };
 
 

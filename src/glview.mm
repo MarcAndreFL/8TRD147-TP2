@@ -3,6 +3,7 @@
 #import "renderer.h"
 
 #include "mesh.h"
+#include "sceneobjects.h"
 
 #include <stdio.h>
 #include <iostream>
@@ -135,8 +136,19 @@ static CVReturn display_link_callback(CVDisplayLinkRef display_link,
     file_path_name = [[NSBundle mainBundle] pathForResource:@"texture" ofType:@"jpg"];
     mesh->set_diffuse_tex_id(gl_load_texture2D([file_path_name cStringUsingEncoding:NSUTF8StringEncoding]));
 
+    [self initScene];
     
     GetGLError();
+}
+
+- (void) initScene
+{
+    NSString* floorTexPath = @"models/mur.jpg";
+    
+    floor = new CFloor();
+    floor->UpdateNormals();
+    floor->AllocVBOData();
+    floor->set_diffuse_tex_id(gl_load_texture2D([floorTexPath cStringUsingEncoding:NSUTF8StringEncoding]));
 }
 
 - (void) prepareOpenGL
@@ -282,6 +294,8 @@ NSString* choose_image_file()
     
     mesh->delete_diffuse_tex();
     mesh->set_diffuse_tex_id(gl_load_texture2D([fname cStringUsingEncoding:NSUTF8StringEncoding]));
+    
+    floor->set_diffuse_tex_id(gl_load_texture2D([fname cStringUsingEncoding:NSUTF8StringEncoding]));
 
     [self draw_view];
 }
@@ -296,6 +310,8 @@ NSString* choose_image_file()
     [[NSRunLoop currentRunLoop]addTimer:frame_timer forMode: NSDefaultRunLoopMode];
    
     //** TODO: Réinitialiser la simulation.
+    floor = new CFloor();
+    floor->AllocVBOData();
 }
 
 -(IBAction)bt_stop_pressed:(NSButton*)sender
@@ -353,6 +369,7 @@ static const float rot_factor = 0.25;
     //cout << "calc_frame : " << test_counter++ << endl;
     
     //** FAIRE LE DESSIN ICI.
+    //[renderer render:floor];
     
     [self setNeedsDisplay:YES];
 }
@@ -368,6 +385,8 @@ static const float rot_factor = 0.25;
 	[[self openGLContext] makeCurrentContext];
 	CGLLockContext([[self openGLContext] CGLContextObj]);
     [renderer render:mesh];
+    
+    [renderer render:floor];
     
     
 	CGLFlushDrawable([[self openGLContext] CGLContextObj]);
