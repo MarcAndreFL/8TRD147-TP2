@@ -135,7 +135,6 @@ static CVReturn display_link_callback(CVDisplayLinkRef display_link,
     
     file_path_name = [[NSBundle mainBundle] pathForResource:@"texture" ofType:@"jpg"];
     mesh->set_diffuse_tex_id(gl_load_texture2D([file_path_name cStringUsingEncoding:NSUTF8StringEncoding]));
-
     [self init_scene];
     
     GetGLError();
@@ -143,13 +142,18 @@ static CVReturn display_link_callback(CVDisplayLinkRef display_link,
 
 - (void) init_scene
 {
-    NSString* floorTexPath = @"models/mur.jpg";
+    NSString* floorTexPath = [[NSBundle mainBundle] pathForResource:@"grass" ofType:@"jpg"];
+    NSString* poleTexPath = [[NSBundle mainBundle] pathForResource:@"mur" ofType:@"jpg"];
+    NSString* sheetTexPath = [[NSBundle mainBundle] pathForResource:@"dog" ofType:@"jpeg"];
     
     floor = new CFloor();
     floor->set_diffuse_tex_id(gl_load_texture2D([floorTexPath cStringUsingEncoding:NSUTF8StringEncoding]));
     
     pole = new CPole();
-    pole->set_diffuse_tex_id(gl_load_texture2D([floorTexPath cStringUsingEncoding:NSUTF8StringEncoding]));
+    pole->set_diffuse_tex_id(gl_load_texture2D([poleTexPath cStringUsingEncoding:NSUTF8StringEncoding]));
+    
+    sheet = new CSheet();
+    sheet->set_diffuse_tex_id(gl_load_texture2D([sheetTexPath cStringUsingEncoding:NSUTF8StringEncoding]));
 }
 
 - (void) prepareOpenGL
@@ -296,6 +300,7 @@ NSString* choose_image_file()
     mesh->delete_diffuse_tex();
     mesh->set_diffuse_tex_id(gl_load_texture2D([fname cStringUsingEncoding:NSUTF8StringEncoding]));
     
+    floor->delete_diffuse_tex();
     floor->set_diffuse_tex_id(gl_load_texture2D([fname cStringUsingEncoding:NSUTF8StringEncoding]));
 
     [self draw_view];

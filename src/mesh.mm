@@ -340,7 +340,11 @@ void CMesh::Draw(GLint prog)
     attrib_normal = glGetAttribLocation(prog, "N0");
     
     glActiveTexture(GL_TEXTURE0);
+    //glGenTextures(1, &diffuse_tex_id);
+    //glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
     glBindTexture(GL_TEXTURE_2D, diffuse_tex_id);
+    
+    
     shader_setuniform(prog, "tex_diffuse", 0);
     
 
@@ -363,10 +367,6 @@ void CMesh::Draw(GLint prog)
     glDisableVertexAttribArray(attrib_texcoord);
     glDisableVertexAttribArray(attrib_normal);
 }
-
-
-
-
 
 
 
