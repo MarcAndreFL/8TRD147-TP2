@@ -150,6 +150,9 @@ static CVReturn display_link_callback(CVDisplayLinkRef display_link,
     
     pole = new CPole();
     pole->set_diffuse_tex_id(gl_load_texture2D([floorTexPath cStringUsingEncoding:NSUTF8StringEncoding]));
+    
+    sheet = new CSheet(40,30);
+    sheet->set_diffuse_tex_id(gl_load_texture2D([floorTexPath cStringUsingEncoding:NSUTF8StringEncoding]));
 }
 
 - (void) prepareOpenGL
@@ -373,7 +376,7 @@ static const float rot_factor = 0.25;
     [self setNeedsDisplay:YES];
 }
 
-//** FB: TODO: This should probably be a part of the renderer as some [draw_scene] function. Calling glClear here is messy, and we can't set position matrices for every mesh here anyway.
+//** FB: TODO: This should be a part of the renderer as some [draw_scene] function. Calling glClear here is messy, and we can't set position matrices for every mesh here anyway.
 - (void)draw_scene
 {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -386,6 +389,10 @@ static const float rot_factor = 0.25;
     pole->AllocVBOData();
     [renderer render:pole position:CPoint3D(-3, 0, 0) scale:CPoint3D(1, 1, 1)];
     [renderer render:pole position:CPoint3D( 3, 0, 0) scale:CPoint3D(1, 1, 1)];
+    
+    sheet->UpdateNormals();
+    sheet->AllocVBOData();
+    [renderer render:sheet position:CPoint3D( 0, 0, 0) scale:CPoint3D(1, 1, 1)];
 }
 
 
