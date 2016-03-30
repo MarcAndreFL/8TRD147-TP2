@@ -43,9 +43,6 @@ public:
 	friend float	Module(const CVect3D& V);
 	friend CVect3D	Normalise(const CVect3D& P);
 	friend float	Angle(const CVect3D& V, const CVect3D& U);
-    friend std::ostream& operator<<(std::ostream& os, const CPoint3D& cPoint){
-        os << X[0]<< "\t" << X[1]<< "\t"  << X[2] << "\n";
-    }
 	CPoint3D	Projection(const CPoint3D& A, const CPoint3D& B) const;	
 	float		ProdScalNorm(const CVect3D& U) const;
 	CVect3D		ProjSur(const CVect3D&) const;
