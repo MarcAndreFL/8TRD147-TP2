@@ -150,6 +150,10 @@ static CVReturn display_link_callback(CVDisplayLinkRef display_link,
     
     pole[0] = new CPole();
     pole[0]->set_diffuse_tex_id(gl_load_texture2D([floorTexPath cStringUsingEncoding:NSUTF8StringEncoding]));
+    
+    sheet = new CSheet(40,30);
+    sheet->set_diffuse_tex_id(gl_load_texture2D([floorTexPath cStringUsingEncoding:NSUTF8StringEncoding]));
+
 }
 
 - (void) prepareOpenGL
@@ -373,18 +377,22 @@ static const float rot_factor = 0.25;
     [self setNeedsDisplay:YES];
 }
 
-//** FB: TODO: This should probably be a part of the renderer as some [draw_scene] function. Calling glClear here is messy, and we can't set position matrices for every mesh here anyway.
+//** FB: TODO: This should be a part of the renderer as some [draw_scene] function. Calling glClear here is messy, and we can't set position matrices for every mesh here anyway.
 - (void)draw_scene
 {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     
-    floor->UpdateNormals();
-    floor->AllocVBOData();
-    [renderer render:floor];
+    //floor->UpdateNormals();
+    //floor->AllocVBOData();
+    //[renderer render:floor];
     
-    pole[0]->UpdateNormals();
-    pole[0]->AllocVBOData();
-    [renderer render:pole[0]];
+    //pole[0]->UpdateNormals();
+    //pole[0]->AllocVBOData();
+    //[renderer render:pole[0]];
+    
+    sheet->UpdateNormals();
+    sheet->AllocVBOData();
+    [renderer render:sheet];
 }
 
 
