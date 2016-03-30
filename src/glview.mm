@@ -373,6 +373,7 @@ static const float rot_factor = 0.25;
     [self setNeedsDisplay:YES];
 }
 
+//** FB: TODO: This should probably be a part of the renderer as some [draw_scene] function. Calling glClear here is messy, and we can't set position matrices for every mesh here anyway.
 - (void)draw_scene
 {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
