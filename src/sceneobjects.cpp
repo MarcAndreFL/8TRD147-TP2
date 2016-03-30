@@ -72,64 +72,81 @@ CPole::CPole() {
     this->triangles.push_back(new CTriangle(this->vertices[0], this->vertices[6], this->vertices[11]));
 }
 
+
+/*
+    AUTHOR: Marc-André Fortin-Leclerc
+    DESCRIPTION: Generates a sheet with a specified amount of vertices in height and width.  By the way, the coordinates (-2,6,0),(2,6,0),(2,3,0),(-2,3,0) are hard coded in this constructor. 
+ */
 CSheet::CSheet(int height, int width) {
-    for (int j=0; j<=height; ++j){
-        for (int i=0; i<=width;++i){
-            this->vertices.push_back(new CVertex(i+j*(width+1), *new CPoint3D(i*4/10-2,j*3/10+3,0),i/width,j/height));
-        }
-    }
-    for(int i=0; i<vertices.size(); ++i){
-        std::cout << vertices[i]->X[0]<< "\t" << vertices[i]->X[1]<< "\t"  << vertices[i]->X[2] << "\n";
-    }
     
+    //Add vertices of the sheet
     for (int j=0; j<height; ++j){
         for (int i=0; i<width;++i){
+            
+            //If it's the first vertex, we put it at (-2,6) by not adding +1 to i and j
+            if(i==0 && j==0)this->vertices.push_back(new CVertex(i+j*(width),
+                                                 *new CPoint3D((float)(i)*4/width-2,(float)(j)*3/(height)+3,0),
+                                                 (float)i/width,(float)j/height));
+            //If it's a vertex with i==0, we only add +1 to the y position of the vertex
+            else if(i==0)this->vertices.push_back(new CVertex(i+j*(width),
+                                                              *new CPoint3D((float)(i)*4/width-2,(float)(j+1)*3/(height)+3,0),
+                                                              (float)i/width,(float)(j+1)/height));
+            //If it's a vertex with j==0, we only add +1 to the x position of the vertex
+            else if(j==0)this->vertices.push_back(new CVertex(i+j*(width),
+                                                              *new CPoint3D((float)(i+1)*4/width-2,(float)(j)*3/(height)+3,0),
+                                                              (float)(i+1)/width,(float)j/height));
+            //Else we add +1 to both x and y position
+            else this->vertices.push_back(new CVertex(i+j*(width),
+                                                      *new CPoint3D((float)(i+1)*4/width-2,(float)(j+1)*3/(height)+3,0),
+                                                      (float)(i+1)/width,(float)(j+1)/height));
+        }
+    }
+    
+    //Add triangles to our mesh using the "X" technique
+    for (int j=0; j<height-1; ++j){
+        for (int i=0; i<width-1;++i){
             if(j%2==0){
                 if (i%2==0){
-                    this->triangles.push_back(new CTriangle(this->vertices[i+j*(width+1)],
-                                                            this->vertices[i+j*(width+1)+2+width],
-                                                            this->vertices[i+j*(width+1)+width+1]));
+                    this->triangles.push_back(new CTriangle(this->vertices[i+j*(width)],
+                                                            this->vertices[i+j*(width)+1+width],
+                                                            this->vertices[i+j*(width)+width]));
                     
-                    this->triangles.push_back(new CTriangle(this->vertices[i+j*(width+1)],
-                                                            this->vertices[i+j*(width+1)+1],
-                                                            this->vertices[i+j*(width+1)+2+width]));
+                    this->triangles.push_back(new CTriangle(this->vertices[i+j*(width)],
+                                                            this->vertices[i+j*(width)+1],
+                                                            this->vertices[i+j*(width)+1+width]));
                 }
                 else{
-                    this->triangles.push_back(new CTriangle(this->vertices[i+j*(width+1)+1+width],
-                                                            this->vertices[i+j*(width+1)],
-                                                            this->vertices[i+j*(width+1)+1]));
+                    this->triangles.push_back(new CTriangle(this->vertices[i+j*(width)+1+width],
+                                                            this->vertices[i+j*(width)+width],
+                                                            this->vertices[i+j*(width)+1]));
                     
-                    this->triangles.push_back(new CTriangle(this->vertices[i+j*(width+1)+1+width],
-                                                            this->vertices[i+j*(width+1)+1],
-                                                            this->vertices[i+j*(width+1)+2+width]));
+                    this->triangles.push_back(new CTriangle(this->vertices[i+j*(width)+width],
+                                                            this->vertices[i+j*(width)],
+                                                            this->vertices[i+j*(width)+1]));
                 }
             }
             else{
                 if (i%2==0){
-                    this->triangles.push_back(new CTriangle(this->vertices[i+j*(width+1)+1+width],
-                                                            this->vertices[i+j*(width+1)],
-                                                            this->vertices[i+j*(width+1)+1]));
+                    this->triangles.push_back(new CTriangle(this->vertices[i+j*(width)+width],
+                                                            this->vertices[i+j*(width)],
+                                                            this->vertices[i+j*(width)+1]));
                     
-                    this->triangles.push_back(new CTriangle(this->vertices[i+j*(width+1)+1+width],
-                                                            this->vertices[i+j*(width+1)+1],
-                                                            this->vertices[i+j*(width+1)+2+width]));
+                    this->triangles.push_back(new CTriangle(this->vertices[i+j*(width)+width],
+                                                            this->vertices[i+j*(width)+1],
+                                                            this->vertices[i+j*(width)+1+width]));
                 }
                 else{
-                    this->triangles.push_back(new CTriangle(this->vertices[i+j*(width+1)],
-                                                            this->vertices[i+j*(width+1)+2+width],
-                                                            this->vertices[i+j*(width+1)+width+1]));
+                    this->triangles.push_back(new CTriangle(this->vertices[i+j*(width)],
+                                                            this->vertices[i+j*(width)+1+width],
+                                                            this->vertices[i+j*(width)+width]));
                     
-                    this->triangles.push_back(new CTriangle(this->vertices[i+j*(width+1)],
-                                                            this->vertices[i+j*(width+1)+1],
-                                                            this->vertices[i+j*(width+1)+2+width]));
+                    this->triangles.push_back(new CTriangle(this->vertices[i+j*(width)],
+                                                            this->vertices[i+j*(width)+1],
+                                                            this->vertices[i+j*(width)+1+width]));
                 }
             }
         }
     }
-    std::list<CTriangle*>::const_iterator itri;
-    /*for(itri=this->triangles.begin(); itri != triangles.end(); ++itri){
-        std::cout << (*itri)->v0->idx << "\t" << (*itri)->v1->idx<< "\t"  << (*itri)->v2->idx << "\n";
-    }*/
 }
 
 CRope::CRope() {
