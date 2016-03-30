@@ -24,12 +24,13 @@
 		B132F6EA18C37B700020FC7D /* sourceutil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B132F6E418C37B700020FC7D /* sourceutil.cpp */; };
 		B15FCB8718BEE4CF00FD68FD /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A15990611B9DE6C001E7AB5 /* QuartzCore.framework */; };
 		B1843C061A3CCB2500B2E033 /* glutil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B1843C051A3CCB2500B2E033 /* glutil.cpp */; };
-		B1BA5AB01AADE48E00CCA889 /* texture.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B1BA5AAF1AADE48E00CCA889 /* texture.jpg */; };
+		B1BA5AB01AADE48E00CCA889 /* grass.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B1BA5AAF1AADE48E00CCA889 /* grass.jpg */; };
 		B1C00F011A72DC730019A985 /* model.ply in Resources */ = {isa = PBXBuildFile; fileRef = B1C00F001A72DC730019A985 /* model.ply */; };
 		B1CCD1BE1A3A49FB0034DBFC /* vectorutil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B1CCD1BC1A3A49FB0034DBFC /* vectorutil.cpp */; };
 		B1D0C7DB1A289DF9007E1C2A /* mesh.mm in Sources */ = {isa = PBXBuildFile; fileRef = B1D0C7D71A289DF9007E1C2A /* mesh.mm */; };
 		B1D0C7DC1A289DF9007E1C2A /* point3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B1D0C7D91A289DF9007E1C2A /* point3d.cpp */; };
-		B1E1E2F51A3A3FA100386427 /* mur.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B1E1E2F21A3A3FA100386427 /* mur.jpg */; };
+		B1E1E2F51A3A3FA100386427 /* pole.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B1E1E2F21A3A3FA100386427 /* pole.jpg */; };
+		EC7CC41E1CAC7F2400B8D537 /* sheet.jpg in Resources */ = {isa = PBXBuildFile; fileRef = EC7CC41D1CAC7F2400B8D537 /* sheet.jpg */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -60,7 +61,7 @@
 		B132F6E418C37B700020FC7D /* sourceutil.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = sourceutil.cpp; path = utils/sourceutil.cpp; sourceTree = "<group>"; };
 		B132F6E518C37B700020FC7D /* sourceutil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = sourceutil.h; path = utils/sourceutil.h; sourceTree = "<group>"; };
 		B1843C051A3CCB2500B2E033 /* glutil.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = glutil.cpp; path = src/glutil.cpp; sourceTree = "<group>"; };
-		B1BA5AAF1AADE48E00CCA889 /* texture.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = texture.jpg; path = models/texture.jpg; sourceTree = "<group>"; };
+		B1BA5AAF1AADE48E00CCA889 /* grass.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = grass.jpg; path = models/grass.jpg; sourceTree = "<group>"; };
 		B1C00F001A72DC730019A985 /* model.ply */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = model.ply; path = models/model.ply; sourceTree = "<group>"; };
 		B1CCD1BC1A3A49FB0034DBFC /* vectorutil.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = vectorutil.cpp; path = utils/vectorutil.cpp; sourceTree = "<group>"; };
 		B1CCD1BD1A3A49FB0034DBFC /* vectorutil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = vectorutil.h; path = utils/vectorutil.h; sourceTree = "<group>"; };
@@ -68,7 +69,8 @@
 		B1D0C7D81A289DF9007E1C2A /* mesh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mesh.h; path = src/mesh.h; sourceTree = "<group>"; };
 		B1D0C7D91A289DF9007E1C2A /* point3d.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = point3d.cpp; path = src/point3d.cpp; sourceTree = "<group>"; };
 		B1D0C7DA1A289DF9007E1C2A /* point3d.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = point3d.h; path = src/point3d.h; sourceTree = "<group>"; };
-		B1E1E2F21A3A3FA100386427 /* mur.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = mur.jpg; path = models/mur.jpg; sourceTree = "<group>"; };
+		B1E1E2F21A3A3FA100386427 /* pole.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = pole.jpg; path = models/pole.jpg; sourceTree = "<group>"; };
+		EC7CC41D1CAC7F2400B8D537 /* sheet.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = sheet.jpg; path = models/sheet.jpg; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -185,9 +187,10 @@
 		B1F9DDB51A3CA78000C1304C /* models */ = {
 			isa = PBXGroup;
 			children = (
-				B1BA5AAF1AADE48E00CCA889 /* texture.jpg */,
+				EC7CC41D1CAC7F2400B8D537 /* sheet.jpg */,
+				B1BA5AAF1AADE48E00CCA889 /* grass.jpg */,
 				B1C00F001A72DC730019A985 /* model.ply */,
-				B1E1E2F21A3A3FA100386427 /* mur.jpg */,
+				B1E1E2F21A3A3FA100386427 /* pole.jpg */,
 			);
 			name = models;
 			sourceTree = "<group>";
@@ -245,12 +248,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B1BA5AB01AADE48E00CCA889 /* texture.jpg in Resources */,
+				B1BA5AB01AADE48E00CCA889 /* grass.jpg in Resources */,
 				B1C00F011A72DC730019A985 /* model.ply in Resources */,
-				B1E1E2F51A3A3FA100386427 /* mur.jpg in Resources */,
+				B1E1E2F51A3A3FA100386427 /* pole.jpg in Resources */,
 				3A1598E411B9DDF3001E7AB5 /* generic.vsh in Resources */,
 				3A1598E511B9DDF3001E7AB5 /* generic.fsh in Resources */,
 				B123565618C376FB00D5EC60 /* 8trd147-d2-Info.plist in Resources */,
+				EC7CC41E1CAC7F2400B8D537 /* sheet.jpg in Resources */,
 				B123565518C376FB00D5EC60 /* MainMenu.xib in Resources */,
 				B123565718C376FB00D5EC60 /* InfoPlist.strings in Resources */,
 			);

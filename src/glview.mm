@@ -143,8 +143,8 @@ static CVReturn display_link_callback(CVDisplayLinkRef display_link,
 - (void) init_scene
 {
     NSString* floorTexPath = [[NSBundle mainBundle] pathForResource:@"grass" ofType:@"jpg"];
-    NSString* poleTexPath = [[NSBundle mainBundle] pathForResource:@"mur" ofType:@"jpg"];
-    NSString* sheetTexPath = [[NSBundle mainBundle] pathForResource:@"dog" ofType:@"jpeg"];
+    NSString* poleTexPath = [[NSBundle mainBundle] pathForResource:@"pole" ofType:@"jpg"];
+    NSString* sheetTexPath = [[NSBundle mainBundle] pathForResource:@"sheet" ofType:@"jpg"];
     
     floor = new CFloor();
     floor->set_diffuse_tex_id(gl_load_texture2D([floorTexPath cStringUsingEncoding:NSUTF8StringEncoding]));
