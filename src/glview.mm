@@ -393,8 +393,9 @@ static const float rot_factor = 0.25;
     sheet->UpdateNormals();
     sheet->AllocVBOData();
     [renderer render:sheet position:CPoint3D( 0, 0, 0) scale:CPoint3D(1, 1, 1)];
+    
+    [renderer render_line:CPoint3D(-3, 6, 0) to:CPoint3D(3, 6, 0)];
 }
-
 
 -(void)drawRect: (NSRect) rect
 {
