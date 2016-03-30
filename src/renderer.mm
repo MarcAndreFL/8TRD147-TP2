@@ -65,7 +65,7 @@ GLfloat mat_diffuse[] = {0.2, 0.2, 0.2};
 GLuint view_width;
 GLuint view_height;
 
-GLfloat rotx = 0.0, roty = 0.0, rotz = 0.0, camposz = -10.0;
+GLfloat rotx = 0.0, roty = 0.0, rotz = 0.0, camposz = -18.0;
 
 // Incrémente les angles.
 -(void)incr_rot:(float)dx :(float)dy :(float)dz
@@ -300,9 +300,7 @@ GLfloat rotx = 0.0, roty = 0.0, rotz = 0.0, camposz = -10.0;
     glUniform1f(loc, val);
 }
 
-
-
-- (void)render:(CMesh*)mesh
+- (void)render:(CMesh*)mesh position:(CPoint3D)pos scale:(CPoint3D)scale
 {
     GLfloat viewdir_matrix[16];        // Matrice sans la translation (pour le cube map et le skybox).
     GLfloat model_view_matrix[16];
@@ -312,23 +310,40 @@ GLfloat rotx = 0.0, roty = 0.0, rotz = 0.0, camposz = -10.0;
     GLfloat vp_matrix[16];
         
     mtxLoadPerspective(projection_matrix, 50, (float)view_width/ (float)view_height, 1.0, 100.0);
+    
+    // MODELVIEW MATRIX
+    
     mtxLoadTranslate(model_view_matrix, 0, 0.0, camposz);
+
+    // Camera rotation
     mtxRotateXApply(model_view_matrix, rotx);
     mtxRotateYApply(model_view_matrix, roty);
     mtxRotateZApply(model_view_matrix, rotz);
     
+    // Object transformation
+    mtxTranslateApply(model_view_matrix, pos[0], pos[1], pos[2]);
+    mtxScaleApply(model_view_matrix, scale[0], scale[1], scale[2]);
+    
+    // VIEW MATRIX
+    
     mtxLoadIdentity(viewdir_matrix);
+    
+    // Camera rotation
     mtxRotateXApply(viewdir_matrix, rotx);
     mtxRotateYApply(viewdir_matrix, roty);
     mtxRotateZApply(viewdir_matrix, rotz);
     
+    // Object transformation
+    mtxTranslateApply(viewdir_matrix, pos[0], pos[1], pos[2]);
+    mtxScaleApply(viewdir_matrix, scale[0], scale[1], scale[2]);
+    
+    // MATRIX COMPOSITION
+    
     mtxMultiply(mvp_matrix, projection_matrix, model_view_matrix);
     mtxMultiply(vp_matrix, projection_matrix, viewdir_matrix);
     
-    
     mtx3x3FromTopLeftOf4x4(normal_matrix, model_view_matrix);
     mtx3x3Invert(normal_matrix, normal_matrix);
-
     
     if ( mesh )
     {
@@ -338,7 +353,7 @@ GLfloat rotx = 0.0, roty = 0.0, rotz = 0.0, camposz = -10.0;
         glUniformMatrix4fv(uniform_model_view_matrix_idx, 1, GL_FALSE, model_view_matrix);
         glUniformMatrix3fv(uniform_normal_matrix_idx, 1, GL_FALSE, normal_matrix);
         //glUniformMatrix3fv(uniform_viewdir_matrix_idx, 1, GL_FALSE, viewdir_matrix);
-        glUniformMatrix4fv(uniform_mvp_matrix_idx, 1, GL_FALSE, mvp_matrix);
+        //glUniformMatrix4fv(uniform_mvp_matrix_idx, 1, GL_FALSE, mvp_matrix);
         
         GLuint loc = glGetUniformLocation(shader_prog_name, "light_pos");
         glUniform3f(loc, light_pos[0], light_pos[1], light_pos[2]);

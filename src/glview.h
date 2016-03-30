@@ -20,7 +20,7 @@ class CMesh;
     
     CMesh*      mesh;
     CFloor*     floor;
-    CPole*      pole[2];
+    CPole*      pole;
     CSheet*     sheet;
     CRope*      rope;
     CRenderer*  renderer;

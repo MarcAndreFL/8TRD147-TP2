@@ -148,8 +148,8 @@ static CVReturn display_link_callback(CVDisplayLinkRef display_link,
     floor = new CFloor();
     floor->set_diffuse_tex_id(gl_load_texture2D([floorTexPath cStringUsingEncoding:NSUTF8StringEncoding]));
     
-    pole[0] = new CPole();
-    pole[0]->set_diffuse_tex_id(gl_load_texture2D([floorTexPath cStringUsingEncoding:NSUTF8StringEncoding]));
+    pole = new CPole();
+    pole->set_diffuse_tex_id(gl_load_texture2D([floorTexPath cStringUsingEncoding:NSUTF8StringEncoding]));
 }
 
 - (void) prepareOpenGL
@@ -380,11 +380,12 @@ static const float rot_factor = 0.25;
     
     floor->UpdateNormals();
     floor->AllocVBOData();
-    [renderer render:floor];
+    [renderer render:floor position:CPoint3D(0, 0, 0) scale:CPoint3D(1, 1, 1)];
     
-    pole[0]->UpdateNormals();
-    pole[0]->AllocVBOData();
-    [renderer render:pole[0]];
+    pole->UpdateNormals();
+    pole->AllocVBOData();
+    [renderer render:pole position:CPoint3D(-3, 0, 0) scale:CPoint3D(1, 1, 1)];
+    [renderer render:pole position:CPoint3D( 3, 0, 0) scale:CPoint3D(1, 1, 1)];
 }
 
 
