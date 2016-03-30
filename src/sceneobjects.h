@@ -23,7 +23,7 @@ public:
 
 class CSheet : public CMesh {
 public:
-    CSheet();
+    CSheet(int height, int width);
 };
 
 class CRope : public CMesh {

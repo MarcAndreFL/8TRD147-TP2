@@ -5,6 +5,7 @@
 #import "sourceUtil.h"
 #include "mesh.h"
 
+#define BUFFER_OFFSET(i) ((char *)NULL + (i))
 
 #include <iostream>
 
@@ -365,6 +366,92 @@ GLfloat rotx = 0.0, roty = 0.0, rotz = 0.0, camposz = -18.0;
     }
 }
 
+- (void)render_line:(CPoint3D)from to:(CPoint3D)to
+{
+    GLfloat* buf_vtx;
+    GLuint ogl_line_buf_vertex_id;
+    GLuint vao_id;
+    int i;
+    
+    // Generate VBO
+    glGenBuffers(1, &ogl_line_buf_vertex_id);
+    
+    buf_vtx = (GLfloat*)malloc(6*sizeof(GLfloat));
+    
+    GLfloat* ib = buf_vtx;
+    for (i=0; i<=2; i++) {
+        *ib++ = from[i];
+        NSLog(@"%f", from[i]);
+    }
+    for (i=0; i<=2; i++) {
+        *ib++ = to[i];
+        NSLog(@"%f", to[i]);
+    }
+    
+    glBindBuffer(GL_ARRAY_BUFFER, ogl_line_buf_vertex_id);
+    glBufferData(GL_ARRAY_BUFFER, 6*sizeof(GLfloat), buf_vtx, GL_STATIC_DRAW);
+    
+    // Matrix calculations
+    
+        GLfloat viewdir_matrix[16];        // Matrice sans la translation (pour le cube map et le skybox).
+        GLfloat model_view_matrix[16];
+        GLfloat projection_matrix[16];
+        GLfloat normal_matrix[9];
+        GLfloat mvp_matrix[16];
+    
+        mtxLoadPerspective(projection_matrix, 50, (float)view_width/ (float)view_height, 1.0, 100.0);
+    
+        // MODEL VIEW MATRIX
+    
+        mtxLoadTranslate(model_view_matrix, 0, 0.0, camposz);
+    
+        // Camera rotation
+        mtxRotateXApply(model_view_matrix, rotx);
+        mtxRotateYApply(model_view_matrix, roty);
+        mtxRotateZApply(model_view_matrix, rotz);
+    
+        // VIEW MATRIX
+    
+        mtxLoadIdentity(viewdir_matrix);
+    
+        // Camera rotation
+        mtxRotateXApply(viewdir_matrix, rotx);
+        mtxRotateYApply(viewdir_matrix, roty);
+        mtxRotateZApply(viewdir_matrix, rotz);
+    
+        // MATRIX COMPOSITION
+    
+        mtxMultiply(mvp_matrix, projection_matrix, model_view_matrix);
+    
+        mtx3x3FromTopLeftOf4x4(normal_matrix, model_view_matrix);
+        mtx3x3Invert(normal_matrix, normal_matrix);
+    
+        glUseProgram(shader_prog_name);
+        
+        glUniformMatrix4fv(uniform_mvp_matrix_idx, 1, GL_FALSE, mvp_matrix);
+        glUniformMatrix4fv(uniform_model_view_matrix_idx, 1, GL_FALSE, model_view_matrix);
+        glUniformMatrix3fv(uniform_normal_matrix_idx, 1, GL_FALSE, normal_matrix);
+    
+        GLuint loc = glGetUniformLocation(shader_prog_name, "light_pos");
+        glUniform3f(loc, light_pos[0], light_pos[1], light_pos[2]);
+        
+        loc = glGetUniformLocation(shader_prog_name, "cam_pos");
+        glUniform3f(loc, normal_matrix[6], normal_matrix[7], normal_matrix[8]);
+    
+    // Draw
+    GLint attrib_position = glGetAttribLocation(shader_prog_name, "pos");
+    
+    glBindVertexArray(vao_id);
+    glEnableVertexAttribArray(attrib_position);
+    glVertexAttribPointer(attrib_position, 3, GL_FLOAT, GL_FALSE, 3*sizeof(GLfloat), BUFFER_OFFSET(0));
+    
+    glDrawArrays(GL_LINES, 0, 2);
+    
+    glDisableVertexAttribArray(attrib_position);
+    
+    // Free buffer
+    free(buf_vtx);
+}
 
 
 @end

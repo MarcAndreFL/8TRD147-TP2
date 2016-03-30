@@ -1,6 +1,6 @@
 #pragma once
 #include <OpenGL/gl3.h>
-
+#include <iostream>
 class CPoint3D;
 typedef CPoint3D CVect3D;
 
@@ -30,6 +30,8 @@ public:
 	friend CVect3D	operator*(const float& a, const CVect3D& V);		
 	friend CVect3D	operator/(const CVect3D& V, const float& a);	
 	
+    
+    
 
 	virtual ~CPoint3D() {}
 	bool	IsNull() const;
