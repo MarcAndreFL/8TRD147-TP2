@@ -25,23 +25,51 @@ CFloor::CFloor() {
 CPole::CPole() {
     //** TODO: Define UVs
     // Bottom hex
-    this->vertices.push_back(new CVertex(0, *new CPoint3D(-3, 0, 0), 0, 0));
-    this->vertices.push_back(new CVertex(1, *new CPoint3D(-0.5, 0, 0.866), 0, 0));
-    this->vertices.push_back(new CVertex(2, *new CPoint3D(0.5, 0, 0.866), 0, 0));
-    this->vertices.push_back(new CVertex(3, *new CPoint3D(3, 0, 0), 0, 0));
-    this->vertices.push_back(new CVertex(4, *new CPoint3D(0.5, 0, -0.866), 0, 0));
-    this->vertices.push_back(new CVertex(5, *new CPoint3D(-0.5, 0, -0.866), 0, 0));
+    this->vertices.push_back(new CVertex(0,  *new CPoint3D(-0.1,  0,  0),    0, 0));
+    this->vertices.push_back(new CVertex(1,  *new CPoint3D(-0.05, 0,  0.08), 0, 0));
+    this->vertices.push_back(new CVertex(2,  *new CPoint3D( 0.05, 0,  0.08), 0, 0));
+    this->vertices.push_back(new CVertex(3,  *new CPoint3D( 0.1,  0,  0),    0, 0));
+    this->vertices.push_back(new CVertex(4,  *new CPoint3D( 0.05, 0, -0.08), 0, 0));
+    this->vertices.push_back(new CVertex(5,  *new CPoint3D(-0.05, 0, -0.08), 0, 0));
     
     // Top hex
-    this->vertices.push_back(new CVertex(6, *new CPoint3D(-3, 6, 0), 0, 0));
-    this->vertices.push_back(new CVertex(7, *new CPoint3D(-0.5, 6, -0.866), 0, 0));
-    this->vertices.push_back(new CVertex(8, *new CPoint3D(0.5, 6, -0.866), 0, 0));
-    this->vertices.push_back(new CVertex(9, *new CPoint3D(3, 6, 0), 0, 0));
-    this->vertices.push_back(new CVertex(10, *new CPoint3D(0.5, 6, 0.866), 0, 0));
-    this->vertices.push_back(new CVertex(11, *new CPoint3D(-0.5, 6, 0.866), 0, 0));
+    this->vertices.push_back(new CVertex(6,  *new CPoint3D(-0.1,  6,  0),    0, 0));
+    this->vertices.push_back(new CVertex(7,  *new CPoint3D(-0.05, 6, -0.08), 0, 0));
+    this->vertices.push_back(new CVertex(8,  *new CPoint3D( 0.05, 6, -0.08), 0, 0));
+    this->vertices.push_back(new CVertex(9,  *new CPoint3D( 0.1,  6,  0),    0, 0));
+    this->vertices.push_back(new CVertex(10, *new CPoint3D( 0.05, 6,  0.08), 0, 0));
+    this->vertices.push_back(new CVertex(11, *new CPoint3D(-0.05, 6,  0.08), 0, 0));
     
-    //** TODO: Tris
+    // Bottom hex tris
+    this->triangles.push_back(new CTriangle(this->vertices[0], this->vertices[1], this->vertices[5]));
+    this->triangles.push_back(new CTriangle(this->vertices[1], this->vertices[2], this->vertices[5]));
+    this->triangles.push_back(new CTriangle(this->vertices[2], this->vertices[4], this->vertices[5]));
+    this->triangles.push_back(new CTriangle(this->vertices[2], this->vertices[3], this->vertices[4]));
     
+    // Top hex tris
+    this->triangles.push_back(new CTriangle(this->vertices[6], this->vertices[7], this->vertices[11]));
+    this->triangles.push_back(new CTriangle(this->vertices[7], this->vertices[10], this->vertices[11]));
+    this->triangles.push_back(new CTriangle(this->vertices[7], this->vertices[8], this->vertices[10]));
+    this->triangles.push_back(new CTriangle(this->vertices[8], this->vertices[9], this->vertices[10]));
+    
+    // Lateral faces tris
+    this->triangles.push_back(new CTriangle(this->vertices[0], this->vertices[5], this->vertices[7]));
+    this->triangles.push_back(new CTriangle(this->vertices[0], this->vertices[7], this->vertices[6]));
+
+    this->triangles.push_back(new CTriangle(this->vertices[4], this->vertices[7], this->vertices[5]));
+    this->triangles.push_back(new CTriangle(this->vertices[4], this->vertices[8], this->vertices[7]));
+
+    this->triangles.push_back(new CTriangle(this->vertices[4], this->vertices[9], this->vertices[8]));
+    this->triangles.push_back(new CTriangle(this->vertices[4], this->vertices[3], this->vertices[9]));
+
+    this->triangles.push_back(new CTriangle(this->vertices[2], this->vertices[9], this->vertices[3]));
+    this->triangles.push_back(new CTriangle(this->vertices[2], this->vertices[10], this->vertices[9]));
+
+    this->triangles.push_back(new CTriangle(this->vertices[2], this->vertices[11], this->vertices[10]));
+    this->triangles.push_back(new CTriangle(this->vertices[2], this->vertices[1], this->vertices[11]));
+
+    this->triangles.push_back(new CTriangle(this->vertices[1], this->vertices[0], this->vertices[11]));
+    this->triangles.push_back(new CTriangle(this->vertices[0], this->vertices[6], this->vertices[11]));
 }
 
 CSheet::CSheet() {

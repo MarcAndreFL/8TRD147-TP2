@@ -44,8 +44,13 @@ class CMesh;
 -(IBAction)bt_stop_pressed:(NSButton*)sender;
 
 // Lecture d'un fichier en format ply.
--(void)initScene;
 -(void)load_mesh:(const char*)fply;
+
+//** FB: Initialisation de la scène.
+-(void)init_scene;
+
+//** FB: Dessin de la scène.
+-(void)draw_scene;
 
 
 @end

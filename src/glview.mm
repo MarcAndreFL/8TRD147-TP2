@@ -136,19 +136,20 @@ static CVReturn display_link_callback(CVDisplayLinkRef display_link,
     file_path_name = [[NSBundle mainBundle] pathForResource:@"texture" ofType:@"jpg"];
     mesh->set_diffuse_tex_id(gl_load_texture2D([file_path_name cStringUsingEncoding:NSUTF8StringEncoding]));
 
-    [self initScene];
+    [self init_scene];
     
     GetGLError();
 }
 
-- (void) initScene
+- (void) init_scene
 {
     NSString* floorTexPath = @"models/mur.jpg";
     
     floor = new CFloor();
-    floor->UpdateNormals();
-    floor->AllocVBOData();
     floor->set_diffuse_tex_id(gl_load_texture2D([floorTexPath cStringUsingEncoding:NSUTF8StringEncoding]));
+    
+    pole[0] = new CPole();
+    pole[0]->set_diffuse_tex_id(gl_load_texture2D([floorTexPath cStringUsingEncoding:NSUTF8StringEncoding]));
 }
 
 - (void) prepareOpenGL
@@ -310,8 +311,6 @@ NSString* choose_image_file()
     [[NSRunLoop currentRunLoop]addTimer:frame_timer forMode: NSDefaultRunLoopMode];
    
     //** TODO: Réinitialiser la simulation.
-    floor = new CFloor();
-    floor->AllocVBOData();
 }
 
 -(IBAction)bt_stop_pressed:(NSButton*)sender
@@ -369,9 +368,22 @@ static const float rot_factor = 0.25;
     //cout << "calc_frame : " << test_counter++ << endl;
     
     //** FAIRE LE DESSIN ICI.
-    //[renderer render:floor];
+    [self draw_scene];
     
     [self setNeedsDisplay:YES];
+}
+
+- (void)draw_scene
+{
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    
+    floor->UpdateNormals();
+    floor->AllocVBOData();
+    [renderer render:floor];
+    
+    pole[0]->UpdateNormals();
+    pole[0]->AllocVBOData();
+    [renderer render:pole[0]];
 }
 
 
@@ -384,10 +396,9 @@ static const float rot_factor = 0.25;
 {	 
 	[[self openGLContext] makeCurrentContext];
 	CGLLockContext([[self openGLContext] CGLContextObj]);
-    [renderer render:mesh];
+    //[renderer render:mesh];
     
-    [renderer render:floor];
-    
+    [self draw_scene];
     
 	CGLFlushDrawable([[self openGLContext] CGLContextObj]);
 	CGLUnlockContext([[self openGLContext] CGLContextObj]);
