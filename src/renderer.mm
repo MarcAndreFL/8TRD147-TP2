@@ -301,7 +301,7 @@ GLfloat rotx = 0.0, roty = 0.0, rotz = 0.0, camposz = -18.0;
     glUniform1f(loc, val);
 }
 
-- (void)render:(CMesh*)mesh position:(CPoint3D)pos scale:(CPoint3D)scale
+- (void)render:(CMesh*)mesh position:(CPoint3D)pos scale:(CPoint3D)scaleFactor currentTime:(float) time
 {
     GLfloat viewdir_matrix[16];        // Matrice sans la translation (pour le cube map et le skybox).
     GLfloat model_view_matrix[16];
@@ -323,7 +323,7 @@ GLfloat rotx = 0.0, roty = 0.0, rotz = 0.0, camposz = -18.0;
     
     // Object transformation
     mtxTranslateApply(model_view_matrix, pos[0], pos[1], pos[2]);
-    mtxScaleApply(model_view_matrix, scale[0], scale[1], scale[2]);
+    mtxScaleApply(model_view_matrix, scaleFactor[0], scaleFactor[1], scaleFactor[2]);
     
     // VIEW MATRIX
     
@@ -336,7 +336,7 @@ GLfloat rotx = 0.0, roty = 0.0, rotz = 0.0, camposz = -18.0;
     
     // Object transformation
     mtxTranslateApply(viewdir_matrix, pos[0], pos[1], pos[2]);
-    mtxScaleApply(viewdir_matrix, scale[0], scale[1], scale[2]);
+    mtxScaleApply(viewdir_matrix, scaleFactor[0], scaleFactor[1], scaleFactor[2]);
     
     // MATRIX COMPOSITION
     
@@ -362,7 +362,7 @@ GLfloat rotx = 0.0, roty = 0.0, rotz = 0.0, camposz = -18.0;
         loc = glGetUniformLocation(shader_prog_name, "cam_pos");
         glUniform3f(loc, normal_matrix[6], normal_matrix[7], normal_matrix[8]);
         
-        mesh->Draw(shader_prog_name);
+        mesh->Draw(shader_prog_name, time);
     }
 }
 

@@ -131,6 +131,8 @@ err = glGetError();								\
 
 
 void shader_setuniform(const GLuint program, const char* name, const int val);
+void shader_setuniform_float(const GLuint program, const char* name, const float val);
+
 
 #endif // __GL_UTIL_H__
 

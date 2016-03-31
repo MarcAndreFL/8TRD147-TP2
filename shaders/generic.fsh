@@ -26,8 +26,8 @@ in vec3 cam_eye;
 
 void main (void)
 {
-
     vec4 diffuse_color;
+    
     vec4 specular_color;
     vec3 N2;
     

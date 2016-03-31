@@ -11,6 +11,7 @@
 #include "sceneobjects.h"
 #include "mesh.h"
 #include "point3d.h"
+#include "glutil.h"
 
 CFloor::CFloor() {
     this->vertices.push_back(new CVertex(0, *new CPoint3D(4, 0, 4), 1, 1));
@@ -145,6 +146,26 @@ CSheet::CSheet(int height, int width) {
             }
         }
     }
+}
+
+void CSheet::Draw(GLint prog, float time){
+    shader_setuniform(prog, "isSheet", 1);
+    CMesh::Draw(prog, time);
+}
+
+void CFloor::Draw(GLint prog, float time){
+    shader_setuniform(prog, "isSheet", 0);
+    CMesh::Draw(prog, time);
+}
+
+void CPole::Draw(GLint prog, float time){
+    shader_setuniform(prog, "isSheet", 0);
+    CMesh::Draw(prog, time);
+}
+
+void CRope::Draw(GLint prog, float time){
+    shader_setuniform(prog, "isSheet", 0);
+    CMesh::Draw(prog, time);
 }
 
 CRope::CRope() {

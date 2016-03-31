@@ -316,6 +316,7 @@ NSString* choose_image_file()
     [[NSRunLoop currentRunLoop]addTimer:frame_timer forMode: NSDefaultRunLoopMode];
    
     //** TODO: Réinitialiser la simulation.
+    currentTime=0;
 }
 
 -(IBAction)bt_stop_pressed:(NSButton*)sender
@@ -375,6 +376,10 @@ static const float rot_factor = 0.25;
     //** FAIRE LE DESSIN ICI.
     [self draw_scene];
     
+    currentTime += frame_timer.timeInterval;
+    
+    
+    
     [self setNeedsDisplay:YES];
 }
 
@@ -385,18 +390,19 @@ static const float rot_factor = 0.25;
     
     floor->UpdateNormals();
     floor->AllocVBOData();
-    [renderer render:floor position:CPoint3D(0, 0, 0) scale:CPoint3D(1, 1, 1)];
+    [renderer render:floor position:CPoint3D(0, 0, 0) scale:CPoint3D(1, 1, 1) currentTime:self->currentTime];
     
     pole->UpdateNormals();
     pole->AllocVBOData();
-    [renderer render:pole position:CPoint3D(-3, 0, 0) scale:CPoint3D(1, 1, 1)];
-    [renderer render:pole position:CPoint3D( 3, 0, 0) scale:CPoint3D(1, 1, 1)];
+    [renderer render:pole position:CPoint3D(-3, 0, 0) scale:CPoint3D(1, 1, 1) currentTime:self->currentTime];
+    [renderer render:pole position:CPoint3D( 3, 0, 0) scale:CPoint3D(1, 1, 1) currentTime:self->currentTime];
     
     sheet->UpdateNormals();
     sheet->AllocVBOData();
-    [renderer render:sheet position:CPoint3D( 0, 0, 0) scale:CPoint3D(1, 1, 1)];
     
     [renderer render_line:CPoint3D(-3, 6, 0) to:CPoint3D(3, 6, 0)];
+
+    [renderer render:sheet position:CPoint3D( 0, 0, 0) scale:CPoint3D(1, 1, 1) currentTime:self->currentTime];
 }
 
 -(void)drawRect: (NSRect) rect

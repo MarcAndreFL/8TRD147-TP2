@@ -90,7 +90,7 @@ public:
     
     bool    ReadPLY(std::ifstream&);    
     void    AllocVBOData();
-    void    Draw(GLint prog);
+    virtual void    Draw(GLint prog, float time);
     
     void    set_diffuse_tex_id(GLint id) { diffuse_tex_id = id; }
     GLint   get_diffuse_tex_id() const { return diffuse_tex_id; }
