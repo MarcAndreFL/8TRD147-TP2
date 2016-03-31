@@ -315,7 +315,6 @@ NSString* choose_image_file()
                                        selector:@selector(calc_frame:) userInfo:nil repeats:YES];
     [[NSRunLoop currentRunLoop]addTimer:frame_timer forMode: NSDefaultRunLoopMode];
    
-    //** TODO: Réinitialiser la simulation.
     currentTime=0;
 }
 

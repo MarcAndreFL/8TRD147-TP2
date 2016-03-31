@@ -8,10 +8,15 @@ uniform vec3 light_pos;
 uniform vec3 cam_pos;
 uniform int isSheet;
 uniform float time;
-float speed=5.0;
-float amplitude=0.5;
+float speed=10.0;
+float amplitude=0.2;
 float frequency=0.3;
 float pi = 3.14159;
+
+float animTimeRise = 0.5;
+float animTimeDown = 3;
+float animSleepTime = 1;
+float animEndSleepTime = 2;
 
 in vec4     pos;
 in vec2     texcoord;
@@ -30,9 +35,28 @@ void main (void)
         var_texcoord = texcoord;
     
         vec4 newPos = pos;
+        float sTime = time;
+        float currentAnimEndTime = animTimeRise;
+        
+        newPos.z =  amplitude*sin(frequency*3.14159*2.0*newPos.x+ speed*sTime);
+        newPos.z += amplitude*sin(frequency*3.14159*2.0*newPos.y+ speed*sTime);
+        
+        if (time >= animTimeRise + animSleepTime && time < animSleepTime + animTimeDown + animTimeRise) {
+            sTime = animSleepTime + animTimeDown + animTimeRise - time;
+            currentAnimEndTime = animTimeDown;
+        } else if (time >= animSleepTime + animTimeDown + animTimeRise
+                   && time <= animSleepTime + animTimeDown + animTimeRise + animEndSleepTime) {
+            sTime = 1.0/60.0;
+        } else if (time >= animSleepTime + animTimeDown + animTimeRise + animEndSleepTime) {
+            sTime = 0;
+        }
+        
+        float offsetZ =  (6 - newPos.y) * clamp(sTime, 0.0, currentAnimEndTime) / currentAnimEndTime;
+        newPos.z = newPos.z * offsetZ + offsetZ;
 
-        newPos.z = amplitude*sin(frequency*3.14159*2.0*newPos.x+ speed*time);
-        newPos.z += amplitude*sin(frequency*3.14159*2.0*newPos.y+ speed*time);
+        
+        
+        
         
         N = normalize(normal_matrix*N0);
         V = normalize(vec3(modelview_matrix*newPos));
