@@ -23,3 +23,8 @@ void shader_setuniform(const GLuint program, const char* name, const int val)
     glUniform1i(loc, val);
 }
 
+void shader_setuniform_float(const GLuint program, const char* name, const float val)
+{
+    GLuint loc = glGetUniformLocation(program, name);
+    glUniform1f(loc, val);
+}

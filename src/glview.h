@@ -17,6 +17,7 @@ class CMesh;
 	CVDisplayLinkRef display_link;
     
     float mouse_x0, mouse_y0;
+    float currentTime;
     
     CMesh*      mesh;
     CFloor*     floor;

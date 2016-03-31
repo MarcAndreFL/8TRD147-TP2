@@ -15,6 +15,7 @@
 #include <OpenGL/gl3.h>
 #include <cstdlib>
 #include <cmath>
+#include <ctime>
 
 using namespace std;
 
@@ -333,7 +334,7 @@ bool CMesh::ReadPLY(std::ifstream& f_in)
 }
 
 
-void CMesh::Draw(GLint prog)
+void CMesh::Draw(GLint prog, float time)
 {
     attrib_position = glGetAttribLocation(prog, "pos");
     attrib_texcoord = glGetAttribLocation(prog, "texcoord");
@@ -346,8 +347,8 @@ void CMesh::Draw(GLint prog)
     
     
     shader_setuniform(prog, "tex_diffuse", 0);
+    shader_setuniform_float(prog, "time", time);
     
-
     glBindVertexArray(vao_id);
     
     glEnableVertexAttribArray(attrib_position);
