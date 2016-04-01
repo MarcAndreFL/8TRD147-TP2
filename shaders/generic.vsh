@@ -31,32 +31,35 @@ out vec3 var_light_pos;
 
 void main (void)
 {
+    //On vérifie s'il s'agit de la feuille ou pas grâce à un entier uniforme.  Cela évite la duplication de code dans le programme principale.
     if(isSheet==1){
         var_texcoord = texcoord;
-    
+        
+        
         vec4 newPos = pos;
         float sTime = time;
         float currentAnimEndTime = animTimeRise;
         
+        //On applique deux harmoniques simples sur la position en z en fonction de la postion courante en x et en y par rapport au temps.
         newPos.z =  amplitude*sin(frequency*3.14159*2.0*newPos.x+ speed*sTime);
         newPos.z += amplitude*sin(frequency*3.14159*2.0*newPos.y+ speed*sTime);
         
+        //Si nous sommes rendu a l'animation de retour, nous inversons la progression du temps
         if (time >= animTimeRise + animSleepTime && time < animSleepTime + animTimeDown + animTimeRise) {
             sTime = animSleepTime + animTimeDown + animTimeRise - time;
             currentAnimEndTime = animTimeDown;
-        } else if (time >= animSleepTime + animTimeDown + animTimeRise
-                   && time <= animSleepTime + animTimeDown + animTimeRise + animEndSleepTime) {
-            sTime = 1.0/60.0;
-        } else if (time >= animSleepTime + animTimeDown + animTimeRise + animEndSleepTime) {
+        }
+        
+        //Si l'anim est fini nous limitons le temps a 0 pour que le drap reste a son etat initial
+        else if (time > animSleepTime + animTimeDown + animTimeRise){
             sTime = 0;
         }
         
+        //On se sert de cette partie pour faire l'offset en z
         float offsetZ =  (6 - newPos.y) * clamp(sTime, 0.0, currentAnimEndTime) / currentAnimEndTime;
         newPos.z = newPos.z * offsetZ + offsetZ;
-
         
-        
-        
+        //TODO: Mettre a jour les normales en fonction des fonctions de transformations appliqué sur le vertex #TooBad
         
         N = normalize(normal_matrix*N0);
         V = normalize(vec3(modelview_matrix*newPos));
@@ -74,5 +77,3 @@ void main (void)
         gl_Position	= modelview_proj_matrix*pos;
     }
 }
-
-
