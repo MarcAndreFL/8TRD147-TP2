@@ -387,7 +387,6 @@ static const float rot_factor = 0.25;
 {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     
-    floor->UpdateNormals();
     floor->AllocVBOData();
     [renderer render:floor position:CPoint3D(0, 0, 0) scale:CPoint3D(1, 1, 1) currentTime:self->currentTime];
     
